@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>投げ文字</title>
+  <link rel="shortcut icon" href="images/icon.png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap');
+
+    html,
+    body {
+      font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+    }
+
+    .blog-footer {
+      padding: 1rem 0;
+      color: #727272;
+      text-align: center;
+      background-color: #f9f9f9;
+      border-top: 0.05rem solid #e5e5e5;
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row mt-3 mb-3">
+      <h2>設定</h2>
+      <div class="col">
+        <label for="url" class="form-label">YouTubeのURL</label>
+        <input id="url" type="text" class="form-control" aria-describedby="urlHelp">
+        <div id="urlHelp" class="form-text">
+          https://www.youtube.com/***<br>
+          https://www.youtube.com/c/***<br>
+          https://www.youtube.com/channel/***<br>
+          など、YouTubeのチャンネルURLを記載。
+        </div>
+      </div>
+      <div class="col">
+        <label for="target" class="form-label">カウントしたい文字</label>
+        <input id="target" type="text" class="form-control" aria-describedby="targetHelp">
+        <div id="targetHelp" class="form-text">
+          「💎,💐,like」のようにカンマ区切りで記載。<br>
+          大文字と小文字は判別しません。
+        </div>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-2">
+        <label for="serverPort" class="form-label">Server Port</label>
+        <input id="serverPort" type="text" class="form-control" value="8000" aria-describedby="serverPortHelp">
+        <div id="serverPortHelp" class="form-text">
+          初期値：8000
+        </div>
+      </div>
+      <div class="col-2">
+        <label for="wsServerPort" class="form-label">Web Port</label>
+        <input id="wsServerPort" type="text" class="form-control" value="5001" aria-describedby="wsServerPortHelp">
+        <div id="wsServerPortHelp" class="form-text">
+          初期値：5001
+        </div>
+      </div>
+      <div class="col-3 d-flex justify-content-center  align-items-center">
+        <div>
+          <label for="countNum" class="form-label">カウント値</label>
+          <input id="countNum" type="number" class="form-control" value="0" aria-describedby="wsServerPortHelp">
+          <div id="countNumHelp" class="form-text">
+            初期値：0
+          </div>
+        </div>
+        <div class="d-flex align-items-start flex-column justify-content-center">
+          <button type="button" class="btn btn-outline-secondary btn-sm m-2 me-0" id="add">＋</button>
+          <button type="button" class="btn btn-outline-secondary btn-sm m-2 me-0" id="sub">－</button>
+        </div>
+      </div>
+      <div class="col d-flex justify-content-end  align-items-center">
+        <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#resetModal">カウント初期化
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-7">
+        <div class="alert alert-dark" role="alert">
+          OBS用URL <a id="obs" target="_blank" class="alert-link">http://***</a>
+        </div>
+      </div>
+      <div class="col d-flex justify-content-end  align-items-center" style="margin-bottom: 1rem;">
+        <button type="button" class="btn btn-outline-danger btn-lg mx-3" data-bs-toggle="modal"
+          data-bs-target="#restartModal">再起動</button>
+        <button type="button" id="start" class="btn btn-outline-primary btn-lg">開始</button>
+      </div>
+    </div>
+  </div>
+  <footer class="blog-footer mt-3">
+    <p>v<span id="ver">0.0.0</span></p>
+    <p class="m-0">© 2022 紅坂柚月</p>
+  </footer>
+  <!-- Modal -->
+  <div class="modal fade" id="resetModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+          <h5>カウントを初期化します。よろしいですか？</h5>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+          <button type="button" class="btn btn-info" data-bs-dismiss="modal" id="countReset">初期化</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade" id="restartModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+          <h5>再起動します。よろしいですか？</h5>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+          <button type="button" class="btn btn-danger" id="restart">再起動</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>

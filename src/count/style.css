@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@800&display=swap');
+
+:root {
+  --border-color: #302833;
+  --font-color: #F6F7F8;
+}
+
+body {
+  background-color: rgba(0, 0, 0, 0);
+  margin: 0px auto;
+  overflow: hidden;
+}
+
+#count {
+  color: var(--font-color);
+  font-family: 'Open Sans', sans-serif;
+  font-size: 7rem;
+  letter-spacing: 0.05em;
+  padding: 10px;
+  text-shadow:
+    var(--border-color) 4px 0px,
+    var(--border-color) -4px 0px,
+    var(--border-color) 0px -4px,
+    var(--border-color) 0px 4px,
+    var(--border-color) 4px 4px,
+    var(--border-color) -4px 4px,
+    var(--border-color) 4px -4px,
+    var(--border-color) -4px -4px,
+    var(--border-color) 2px 4px,
+    var(--border-color) -2px 4px,
+    var(--border-color) 2px -4px,
+    var(--border-color) -2px -4px,
+    var(--border-color) 4px 2px,
+    var(--border-color) -4px 2px,
+    var(--border-color) 4px -2px,
+    var(--border-color) -4px -2px;
+}
