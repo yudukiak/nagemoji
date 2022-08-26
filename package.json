@@ -4,7 +4,9 @@
   "version": "0.0.1",
   "description": "設定した文字をYouTubeのコメントから検知してOBS上に表示させることができます",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "start": "node_modules\\.bin\\electron src"
+  },
   "author": "yudukiak",
   "license": "MIT",
   "dependencies": {

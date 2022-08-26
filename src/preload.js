@@ -1,5 +1,6 @@
-const {LiveChat} = require('youtube-chat')
-const {channelId, videoId} = require('@gonetone/get-youtube-id-by-url')
+const path = require('path')
+const { LiveChat } = require('youtube-chat')
+const { channelId, videoId } = require('@gonetone/get-youtube-id-by-url')
 const http = require('http')
 const ws = require('ws')
 const fs = require('fs')
@@ -84,6 +85,44 @@ const getComment = async (LiveChat, channelId) => {
   const ok = await liveChat.start()
 }
 
+// バージョンチェック
+const checkVersion = (version) => {
+  const btnDisplay = _ => {
+    document.getElementById('notver').classList.add('d-none')
+    document.getElementById('newver').classList.remove('d-none')
+  }
+  fetch('https://api.github.com/repositories/502347200/releases')
+    .then(result => result.json())
+    .then((outputs) => {
+      const output = outputs[0] || { tag_name: 'v 0.0.0-test' }
+      const tag_name = output.tag_name.match(/(\d+\.\d+\.\d+)/gi)[0]
+      const versionAry = version.split('.')
+      const tagNameAry = tag_name.split('.')
+      //tagNameAry[0] = '0'
+      //tagNameAry[1] = '0'
+      //tagNameAry[2] = '1'
+      console.log('GitHub JSON', outputs)
+      console.log('GitHub JSON[0]', output)
+      console.log('利用バージョン', versionAry)
+      console.log('最新バージョン', tagNameAry)
+      if (versionAry[0] < tagNameAry[0]) {
+        btnDisplay()
+      } else if (versionAry[1] < tagNameAry[1]) {
+        btnDisplay()
+      } else if (versionAry[2] < tagNameAry[2]) {
+        btnDisplay()
+      }
+    }).catch(err => console.error(err))
+}
+
+// カウント記入
+const countNumValSet = (num) => {
+  document.getElementById('countNum').value = num
+  counter = num
+  if (wsServer) wsServer.clients.forEach(client => client.send(num))
+  settingSave()
+}
+
 // 保存
 const settingSave = (isStart) => {
   let object = {}
@@ -110,6 +149,12 @@ const settingLoad = _ => {
 }
 
 window.onload = _ => {
+  // バージョンチェック
+  const package = require(path.join(__dirname, 'package.json'))
+  const version = process.env.npm_package_version || package.version
+  document.getElementById('ver').innerHTML = version
+  checkVersion(version)
+  // イベント追加
   const startButton = document.getElementById('start')
   settingLoad()
   startButton.addEventListener('click', event => {
@@ -120,25 +165,18 @@ window.onload = _ => {
     settingSave(true)
     startServer()
   })
-  const restartButton = document.getElementById('restart')
-  restartButton.addEventListener('click', event => {
+  document.getElementById('restart').addEventListener('click', event => {
     location.reload()
   })
   document.getElementById('countReset').addEventListener('click', event => {
-    valSet(0)
+    countNumValSet(0)
   })
   document.getElementById('add').addEventListener('click', event => {
     const val = document.getElementById('countNum').value
-    valSet(Number(val) + 1)
+    countNumValSet(Number(val) + 1)
   })
   document.getElementById('sub').addEventListener('click', event => {
     const val = document.getElementById('countNum').value
-    valSet(Number(val) - 1)
+    countNumValSet(Number(val) - 1)
   })
-  const valSet = (num) => {
-    document.getElementById('countNum').value = num
-    counter = num
-    if (wsServer) wsServer.clients.forEach(client => client.send(num))
-    settingSave()
-  }
 }
