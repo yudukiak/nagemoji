@@ -5,18 +5,19 @@
   "description": "設定した文字をYouTubeのコメントから検知してOBS上に表示させることができます",
   "main": "index.js",
   "scripts": {
-    "start": "node_modules\\.bin\\electron src"
+    "start": "node_modules\\.bin\\electron src",
+    "packager": "node_modules\\.bin\\electron-packager src nagemoji --platform=win32 --arch=ia32 --icon=src\\images\\icon.png --overwrite"
   },
   "author": "yudukiak",
   "license": "MIT",
   "dependencies": {
     "@gonetone/get-youtube-id-by-url": "^1.0.0",
-    "ws": "^8.8.0",
+    "ws": "^8.8.1",
     "youtube-chat": "^2.1.1"
   },
   "devDependencies": {
-    "electron": "^18.2.0",
-    "electron-packager": "^15.5.1",
+    "electron": "^20.1.0",
+    "electron-packager": "^16.0.0",
     "fs-extra": "^10.1.0"
   }
 }
