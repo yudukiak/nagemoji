@@ -1,6 +1,6 @@
 {
   "name": "nagemoji",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "設定した文字をYouTubeのコメントから検知してOBS上に表示させることができます",
   "main": "index.js",
   "scripts": {},
